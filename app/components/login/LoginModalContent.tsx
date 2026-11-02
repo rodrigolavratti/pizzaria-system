@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { useAuth } from "@/app/context";
 import { FirebaseError } from "firebase/app";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 export default function LoginModalContent() {
   const { closeAuthModal, login, register } = useAuth();
@@ -16,6 +17,7 @@ export default function LoginModalContent() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [name, setName] = useState("");
   const emailInputRef = useRef<HTMLInputElement>(null);
 
@@ -157,21 +159,38 @@ export default function LoginModalContent() {
 
           <div>
             <label className="block text-sm font-medium mb-1">Senha</label>
-            <input
-              type="password"
-              required
-              aria-invalid={Boolean(fieldErrors.password)}
-              aria-describedby={
-                fieldErrors.password ? "password-error" : undefined
-              }
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-                setFieldErrors((current) => ({ ...current, password: "" }));
-              }}
-              placeholder="••••••••"
-              className="w-full px-4 py-2 bg-neutral-800 border border-neutral-700 rounded-lg focus:outline-none focus:border-red-500"
-            />
+            <div className="relative">
+              <input
+                type={isPasswordVisible ? "text" : "password"}
+                required
+                aria-invalid={Boolean(fieldErrors.password)}
+                aria-describedby={
+                  fieldErrors.password ? "password-error" : undefined
+                }
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setFieldErrors((current) => ({ ...current, password: "" }));
+                }}
+                placeholder="••••••••"
+                className="w-full px-4 py-2 pr-12 bg-neutral-800 border border-neutral-700 rounded-lg focus:outline-none focus:border-red-500"
+              />
+              <button
+                type="button"
+                onClick={() => setIsPasswordVisible((visible) => !visible)}
+                aria-label={
+                  isPasswordVisible ? "Ocultar senha" : "Mostrar senha"
+                }
+                aria-pressed={isPasswordVisible}
+                className="absolute inset-y-0 right-3 flex items-center text-neutral-400 hover:text-white"
+              >
+                {isPasswordVisible ? (
+                  <FiEyeOff aria-hidden="true" />
+                ) : (
+                  <FiEye aria-hidden="true" />
+                )}
+              </button>
+            </div>
             {mode === "register" && !fieldErrors.password && (
               <p className="mt-1 text-sm text-neutral-400">
                 A senha deve conter mínimo de 6 caracteres, incluindo uma letra

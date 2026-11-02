@@ -18,7 +18,7 @@ export default function Header() {
       <header className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-6 py-4">
         <a href="#" className="flex items-center">
           <Image
-            src="/images/logo-imagem.png"
+            src="/images/logo-pizzaria.png"
             alt="Logotipo Pizza System"
             width={200}
             height={52}
