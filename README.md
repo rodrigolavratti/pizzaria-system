@@ -1,6 +1,6 @@
-# Pizzaria Bernonni
+# Pizzaria System
 
-Landing page institucional da **Pizzaria Bernonni**, desenvolvida com Next.js e TypeScript. O projeto apresenta a pizzaria, seu cardápio e informações para que clientes conheçam a marca e encontrem formas de contato.
+Landing page institucional da **Pizzaria System**, desenvolvida com Next.js e TypeScript. O projeto apresenta a pizzaria, seu cardápio e informações para que clientes conheçam a marca e encontrem formas de contato.
 
 ## Funcionalidades
 
