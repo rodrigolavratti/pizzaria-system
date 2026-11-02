@@ -19,7 +19,7 @@ export default function Header() {
         <a href="#" className="flex items-center">
           <Image
             src="/images/logo-imagem.png"
-            alt="Logotipo Pizza Bernonni"
+            alt="Logotipo Pizza System"
             width={200}
             height={52}
             className="object-contain"
@@ -64,7 +64,7 @@ export default function Header() {
         id="hero-title"
         className="text-4xl md:text-5xl font-extrabold text-white tracking-wide text-center"
       >
-        Cardápio Pizza Bernonni
+        Cardápio Pizza System
       </h1>
     </section>
   );
