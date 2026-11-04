@@ -2,15 +2,22 @@
 
 import { useState } from "react";
 import { useAuth } from "@/app/context/AuthContext";
+import { Pizza } from "@/app/types";
+import { useCart } from "@/app/context/CartContext";
 
-export default function AddToCartButton() {
-  const { user, openAuthModal } = useAuth();
+export default function AddToCartButton({ pizza }: { pizza: Pizza }) {
+  const { user, openAuthModal, openSidebar } = useAuth();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const { addItem } = useCart();
 
   const handleClick = () => {
     if (!user) {
       setIsLoginOpen(true);
+      return;
     }
+
+    addItem(pizza);
+    openSidebar("cart");
   };
 
   return (

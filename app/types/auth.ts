@@ -3,12 +3,14 @@ export interface User {
   email: string;
 }
 
+export type SidebarPanel = "cart" | "account";
+
 export interface AuthContextType {
   user: User | null;
-  isSidebarOpen: boolean;
+  activeSidebar: SidebarPanel | null;
   isAuthModalOpen: boolean;
   authMode: "login" | "register";
-  openSidebar: () => void;
+  openSidebar: (panel: SidebarPanel) => void;
   closeSidebar: () => void;
   openAuthModal: (mode?: "login" | "register") => void;
   closeAuthModal: () => void;

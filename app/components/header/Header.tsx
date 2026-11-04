@@ -1,10 +1,14 @@
 "use client";
 
 import { useAuth } from "@/app/context/AuthContext";
+import { useCart } from "@/app/context/CartContext";
 import Image from "next/image";
+import { FiLogIn, FiShoppingCart } from "react-icons/fi";
 
 export default function Header() {
   const { openSidebar, user } = useAuth();
+  const { items } = useCart();
+  const itemCount = items.reduce((count, item) => count + item.quantity, 0);
 
   return (
     <section
@@ -26,35 +30,53 @@ export default function Header() {
             priority
           />
         </a>
-        <nav aria-label="Navegação Principal">
+        <nav
+          aria-label="Navegação Principal"
+          className="flex items-center gap-3"
+        >
           <button
             type="button"
-            onClick={openSidebar}
-            aria-label="Abrir Menu"
-            className="flex items-center gap-2 p-2 text-white transition-colors hover:text-neutral-300 bg-black/40 hover:bg-black/60 rounded-full px-4"
+            onClick={() => openSidebar("account")}
+            aria-label={
+              user
+                ? `Abrir conta de ${user.name}`
+                : "Entrar ou criar uma conta"
+            }
+            title={user ? `Conta de ${user.name}` : "Entrar"}
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-black/40 text-white transition-colors hover:bg-black/60 hover:text-neutral-300"
           >
-            {/* Ícone de Usuário/Menu */}
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-            {/* Se logado, mostra o nome do usuário */}
             {user ? (
-              <span className="text-sm font-medium max-w-[120px] truncate">
-                {user.name}
+              <span
+                aria-hidden="true"
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-red-600 text-sm font-bold"
+              >
+                {user.name.charAt(0).toUpperCase()}
               </span>
             ) : (
-              <span className="text-sm font-medium hidden sm:inline">
-                Entrar
+              <FiLogIn size={22} aria-hidden="true" />
+            )}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => openSidebar("cart")}
+            aria-label={
+              itemCount > 0
+                ? `Abrir carrinho com ${itemCount} ${
+                    itemCount === 1 ? "item" : "itens"
+                  }`
+                : "Abrir carrinho vazio"
+            }
+            title="Carrinho"
+            className="relative flex h-11 w-11 items-center justify-center rounded-full bg-black/40 text-white transition-colors hover:bg-black/60 hover:text-neutral-300"
+          >
+            <FiShoppingCart size={22} aria-hidden="true" />
+            {itemCount > 0 && (
+              <span
+                aria-hidden="true"
+                className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-600 px-1 text-xs font-bold text-white"
+              >
+                {itemCount > 99 ? "99+" : itemCount}
               </span>
             )}
           </button>

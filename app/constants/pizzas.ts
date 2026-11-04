@@ -9,6 +9,7 @@ export const pizzas: Pizza[] = [
     preco: 32.99,
     imagemAlt: "Pizza de Calabresa Clássica",
     imagem: "/images/pizza-calabresa.jpeg",
+    review: 4.8,
   },
   {
     id: crypto.randomUUID(),
@@ -18,6 +19,7 @@ export const pizzas: Pizza[] = [
     preco: 34.99,
     imagemAlt: "Pizza de Bacon Clássica",
     imagem: "/images/pizza-qualquer.jpg",
+    review: 4.5,
   },
   {
     id: crypto.randomUUID(),
@@ -27,6 +29,7 @@ export const pizzas: Pizza[] = [
     preco: 29.99,
     imagemAlt: "Pizza Portuguesa com Cogumelos e Azeitonas",
     imagem: "/images/pizza-calabresa.jpeg",
+    review: 2.5,
   },
   {
     id: crypto.randomUUID(),
@@ -36,6 +39,7 @@ export const pizzas: Pizza[] = [
     preco: 32.99,
     imagemAlt: "Pizza de Calabresa Clássica",
     imagem: "/images/pizza-calabresa.jpeg",
+    review: 3.8,
   },
   {
     id: crypto.randomUUID(),
@@ -45,6 +49,7 @@ export const pizzas: Pizza[] = [
     preco: 34.99,
     imagemAlt: "Pizza de Bacon Clássica",
     imagem: "/images/pizza-qualquer.jpg",
+    review: 5.0,
   },
   {
     id: crypto.randomUUID(),
@@ -54,5 +59,6 @@ export const pizzas: Pizza[] = [
     preco: 29.99,
     imagemAlt: "Pizza Portuguesa com Cogumelos e Azeitonas",
     imagem: "/images/pizza-calabresa.jpeg",
+    review: 3.3,
   },
 ];

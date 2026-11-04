@@ -5,4 +5,5 @@ export type Pizza = {
   preco: number;
   imagemAlt: string;
   imagem: string;
+  review?: number;
 };
