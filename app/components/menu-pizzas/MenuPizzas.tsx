@@ -41,7 +41,44 @@ export default function MenuSection() {
 
                   <div className="flex grow flex-col justify-between p-6">
                     <div>
-                      <h3 className="mb-2 text-xl font-bold">{pizza.nome}</h3>
+                      <div className="mb-2 flex justify-between items-center gap-2">
+                        <h3 className="text-xl font-bold">{pizza.nome}</h3>
+
+                        {typeof pizza.review === "number" &&
+                          pizza.review >= 0 &&
+                          pizza.review <= 5 && (
+                            <span
+                              role="img"
+                              aria-label={`Avaliação: ${pizza.review.toLocaleString("pt-BR")} de 5`}
+                              className="flex shrink-0 text-xl leading-none"
+                            >
+                              {Array.from({ length: 5 }, (_, index) => {
+                                const preenchimento = Math.min(
+                                  100,
+                                  Math.max(0, (pizza.review || 0) - index) *
+                                    100,
+                                );
+
+                                return (
+                                  <span
+                                    key={index}
+                                    aria-hidden="true"
+                                    className="relative inline-block text-neutral-300"
+                                  >
+                                    ★
+                                    <span
+                                      className="absolute inset-y-0 left-0 overflow-hidden whitespace-nowrap text-amber-400"
+                                      style={{ width: `${preenchimento}%` }}
+                                    >
+                                      ★
+                                    </span>
+                                  </span>
+                                );
+                              })}
+                            </span>
+                          )}
+                      </div>
+
                       <p className="mb-4 text-sm text-neutral-600">
                         {pizza.descricao}
                       </p>
@@ -51,7 +88,7 @@ export default function MenuSection() {
                       <span className="text-2xl font-bold text-black-900">
                         R$ {pizza.preco.toFixed(2).replace(".", ",")}
                       </span>
-                      <AddToCartButton />
+                      <AddToCartButton pizza={pizza} />
                     </div>
                   </div>
                 </article>

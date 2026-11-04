@@ -4,6 +4,7 @@ import { AuthProvider } from "@/app/context/AuthContext";
 import "./globals.css";
 import Sidebar from "@/app/components/sidebar/Sidebar";
 import LoginModal from "@/app/components/login/LoginModal";
+import { CartProvider } from "@/app/context/CartContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,9 +33,11 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-neutral-950 text-white">
         <AuthProvider>
-          {children}
-          <Sidebar />
-          <LoginModal />
+          <CartProvider>
+            {children}
+            <Sidebar />
+            <LoginModal />
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>

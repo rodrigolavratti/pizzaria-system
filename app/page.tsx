@@ -6,7 +6,7 @@ import Depoimentos from "@/app/components/depoimentos/Depoimentos";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-neutral-300 text-neutral-100 font-sans">
+    <div className="min-h-screen bg-gray-100 text-neutral-100 font-sans">
       <main>
         {/* HEADER */}
         <Header />

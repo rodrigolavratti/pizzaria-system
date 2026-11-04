@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { AuthContextType, User } from "@/app/types/auth";
+import { AuthContextType, SidebarPanel, User } from "@/app/types/auth";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -15,18 +15,18 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [activeSidebar, setActiveSidebar] = useState<SidebarPanel | null>(null);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState<"login" | "register">("login");
   const [isAuthReady, setIsAuthReady] = useState(false);
 
-  const openSidebar = () => setIsSidebarOpen(true);
-  const closeSidebar = () => setIsSidebarOpen(false);
+  const openSidebar = (panel: SidebarPanel) => setActiveSidebar(panel);
+  const closeSidebar = () => setActiveSidebar(null);
 
   const openAuthModal = (mode: "login" | "register" = "login") => {
     setAuthMode(mode);
     setIsAuthModalOpen(true);
-    setIsSidebarOpen(false);
+    setActiveSidebar(null);
   };
 
   const closeAuthModal = () => setIsAuthModalOpen(false);
@@ -83,7 +83,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     <AuthContext.Provider
       value={{
         user,
-        isSidebarOpen,
+        activeSidebar,
         isAuthModalOpen,
         authMode,
         openSidebar,
