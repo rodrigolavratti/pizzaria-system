@@ -1,9 +1,16 @@
 "use client";
 
 import { useAuth } from "@/app/context/AuthContext";
+import { useCart } from "@/app/context/CartContext";
 
 export default function AccountSidebar() {
   const { user, openAuthModal, closeSidebar, logout } = useAuth();
+  const { clearCart } = useCart();
+
+  const handleLogout = async () => {
+    await logout();
+    clearCart();
+  };
 
   return (
     <div className="flex h-full flex-col">
@@ -40,7 +47,7 @@ export default function AccountSidebar() {
 
           <button
             type="button"
-            onClick={logout}
+            onClick={handleLogout}
             className="mt-auto w-full rounded-lg border border-neutral-700/50 bg-neutral-800 py-2.5 text-sm font-semibold text-red-400 transition-colors hover:bg-neutral-700"
           >
             Sair da Conta

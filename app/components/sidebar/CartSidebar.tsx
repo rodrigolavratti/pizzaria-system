@@ -1,11 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { useCart } from "@/app/context/CartContext";
 import { useAuth } from "@/app/context/AuthContext";
-import { FiTrash2 } from "react-icons/fi";
+import { FiMinus, FiPlus, FiTrash2 } from "react-icons/fi";
 
 export default function CartSidebar() {
-  const { items, total, removeItem, clearCart } = useCart();
+  const { items, total, addItem, decrementItem, removeItem, clearCart } =
+    useCart();
   const { closeSidebar } = useAuth();
 
   if (items.length === 0) {
@@ -34,13 +36,29 @@ export default function CartSidebar() {
             <div className="flex items-start justify-between gap-3">
               <div>
                 <p className="font-semibold">{pizza.nome}</p>
-                <p className="mt-1 text-sm text-neutral-400">
-                  {quantity} ×{" "}
-                  {pizza.preco.toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                  })}
-                </p>
+                <div className="mt-2 flex items-center gap-3">
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => decrementItem(pizza.id)}
+                      className="flex h-7 w-7 items-center justify-center rounded-full border border-neutral-600 text-neutral-300 transition-colors hover:bg-neutral-700 hover:text-white"
+                      aria-label={`Diminuir quantidade de ${pizza.nome}`}
+                    >
+                      <FiMinus size={14} aria-hidden="true" />
+                    </button>
+                    <span className="min-w-4 text-center text-sm font-medium">
+                      {quantity}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => addItem(pizza)}
+                      className="flex h-7 w-7 items-center justify-center rounded-full border border-neutral-600 text-neutral-300 transition-colors hover:bg-neutral-700 hover:text-white"
+                      aria-label={`Aumentar quantidade de ${pizza.nome}`}
+                    >
+                      <FiPlus size={14} aria-hidden="true" />
+                    </button>
+                  </div>
+                </div>
               </div>
 
               <button
@@ -82,13 +100,13 @@ export default function CartSidebar() {
           Limpar carrinho
         </button>
 
-        <button
-          type="button"
+        <Link
+          href="/checkout"
           onClick={closeSidebar}
-          className="mt-3 w-full rounded-lg bg-red-600 py-3 text-sm font-bold transition-colors hover:bg-red-700"
+          className="mt-3 flex w-full items-center justify-center rounded-lg bg-red-600 py-3 text-sm font-bold transition-colors hover:bg-red-700"
         >
-          Continuar comprando
-        </button>
+          Finalizar Pedido
+        </Link>
       </div>
     </div>
   );
