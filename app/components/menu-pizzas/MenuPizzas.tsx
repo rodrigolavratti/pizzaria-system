@@ -17,7 +17,10 @@ export default function MenuSection() {
         aria-labelledby="menu-title"
       >
         <div className="mx-auto max-w-7xl">
-          <ul className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <ul
+            id="pizza-cards"
+            className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+          >
             {pizzas.map((pizza) => (
               <li key={pizza.id}>
                 <article className="flex h-full flex-col overflow-hidden rounded-lg bg-white text-neutral-900 shadow-lg">
