@@ -9,12 +9,12 @@ const WHATSAPP_PHONE = "5511999999999";
 
 type Fulfillment = "delivery" | "pickup";
 
-function formatCurrency(value: number) {
+const formatCurrency = (value: number) => {
   return value.toLocaleString("pt-BR", {
     style: "currency",
     currency: "BRL",
   });
-}
+};
 
 export default function Checkout() {
   const { items, total, isHydrated } = useCart();
@@ -68,9 +68,7 @@ export default function Checkout() {
             aria-hidden="true"
             className="h-10 w-10 animate-spin rounded-full border-4 border-neutral-700 border-t-red-500"
           />
-          <p className="text-sm text-neutral-300">
-            Carregando seu carrinho...
-          </p>
+          <p className="text-sm text-neutral-300">Carregando seu carrinho...</p>
         </div>
       </main>
     );

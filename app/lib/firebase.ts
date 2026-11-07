@@ -1,6 +1,7 @@
 // app/lib/firebase.ts
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -14,3 +15,5 @@ const firebaseConfig = {
 // Evita inicializar o app duplicado no Next.js durante o Hot Reload
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 export const auth = getAuth(app);
+
+export const db = getFirestore(app);
