@@ -11,10 +11,10 @@ export default function AddToCartButton({ pizza }: { pizza: Pizza }) {
   const { addItem } = useCart();
 
   const handleClick = () => {
-    if (!user) {
+    /*     if (!user) {
       setIsLoginOpen(true);
       return;
-    }
+    } */
 
     addItem(pizza);
     openSidebar("cart");
@@ -30,7 +30,7 @@ export default function AddToCartButton({ pizza }: { pizza: Pizza }) {
         Adicionar ao carrinho
       </button>
 
-      {isLoginOpen && (
+      {/* {isLoginOpen && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
           onClick={() => setIsLoginOpen(false)}
@@ -71,7 +71,7 @@ export default function AddToCartButton({ pizza }: { pizza: Pizza }) {
             </button>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 }

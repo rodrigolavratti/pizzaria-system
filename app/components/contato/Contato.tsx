@@ -230,18 +230,6 @@ export default function Contato() {
                 </span>
               </div>
             </div>
-
-            <div className="mt-8 pt-4 border-t border-slate-100">
-              <a
-                href="https://wa.me/5511999999999"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-4 rounded-xl shadow-sm transition-colors text-sm"
-              >
-                <FaWhatsapp className="w-5 h-5" />
-                Pedir pelo WhatsApp
-              </a>
-            </div>
           </article>
         </div>
       </div>

@@ -62,7 +62,7 @@ export default function Header() {
           aria-label="Navegação Principal"
           className="flex items-center gap-3"
         >
-          <button
+          {/* <button
             type="button"
             onClick={() => openSidebar("account")}
             aria-label={
@@ -85,37 +85,37 @@ export default function Header() {
             ) : (
               <FiUser size={22} aria-hidden="true" />
             )}
-          </button>
+          </button> */}
 
-          {user && (
-            <button
-              type="button"
-              onClick={() => openSidebar("cart")}
-              aria-label={
-                itemCount > 0
-                  ? `Abrir carrinho com ${itemCount} ${
-                      itemCount === 1 ? "item" : "itens"
-                    }`
-                  : "Abrir carrinho vazio"
-              }
-              title="Carrinho"
-              className={`relative flex h-11 w-11 items-center justify-center rounded-full transition-colors ${
-                isScrolled
-                  ? "bg-neutral-100 text-neutral-800 hover:bg-neutral-200 hover:text-neutral-900"
-                  : "bg-black/40 text-white hover:bg-black/60 hover:text-neutral-300"
-              }`}
-            >
-              <FiShoppingCart size={22} aria-hidden="true" />
-              {itemCount > 0 && (
-                <span
-                  aria-hidden="true"
-                  className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-600 px-1 text-xs font-bold text-white"
-                >
-                  {itemCount > 99 ? "99+" : itemCount}
-                </span>
-              )}
-            </button>
-          )}
+          {/* {user && ( */}
+          <button
+            type="button"
+            onClick={() => openSidebar("cart")}
+            aria-label={
+              itemCount > 0
+                ? `Abrir carrinho com ${itemCount} ${
+                    itemCount === 1 ? "item" : "itens"
+                  }`
+                : "Abrir carrinho vazio"
+            }
+            title="Carrinho"
+            className={`relative flex h-11 w-11 items-center justify-center rounded-full transition-colors ${
+              isScrolled
+                ? "bg-neutral-100 text-neutral-800 hover:bg-neutral-200 hover:text-neutral-900"
+                : "bg-black/40 text-white hover:bg-black/60 hover:text-neutral-300"
+            }`}
+          >
+            <FiShoppingCart size={22} aria-hidden="true" />
+            {itemCount > 0 && (
+              <span
+                aria-hidden="true"
+                className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-600 px-1 text-xs font-bold text-white"
+              >
+                {itemCount > 99 ? "99+" : itemCount}
+              </span>
+            )}
+          </button>
+          {/* )} */}
         </nav>
       </header>
       <h1
