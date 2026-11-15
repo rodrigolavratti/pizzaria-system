@@ -1,14 +1,54 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddToCartButton from "@/app/components/menu-pizzas/add-to-cart-button/AddToCartButton";
-import { pizzas } from "@/app/constants";
+import { listAvailablePizzas } from "@/app/lib/pizza-service";
+import type { Pizza as MenuPizza } from "@/app/types/menu-pizzas";
+import type { Pizza as FirestorePizza } from "@/app/types/pizza";
 import Image from "next/image";
 
+const toMenuPizza = (pizza: FirestorePizza): MenuPizza => ({
+  id: pizza.id,
+  nome: pizza.name,
+  descricao: pizza.description,
+  preco: pizza.price,
+  imagemAlt: pizza.name,
+  imagem: pizza.imageUrl,
+});
+
 export default function MenuSection() {
-  const [pizzaSelecionada, setPizzaSelecionada] = useState<
-    (typeof pizzas)[number] | null
-  >(null);
+  const [pizzas, setPizzas] = useState<MenuPizza[]>([]);
+  const [pizzaSelecionada, setPizzaSelecionada] = useState<MenuPizza | null>(
+    null,
+  );
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
+
+  useEffect(() => {
+    let isActive = true;
+
+    listAvailablePizzas()
+      .then((availablePizzas) => {
+        if (isActive) {
+          setPizzas(availablePizzas.map(toMenuPizza));
+        }
+      })
+      .catch((error: unknown) => {
+        console.error("Erro ao carregar o cardápio:", error);
+        if (isActive) {
+          setLoadError(
+            "Não foi possível carregar o cardápio. Tente novamente mais tarde.",
+          );
+        }
+      })
+      .finally(() => {
+        if (isActive) setIsLoading(false);
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
 
   return (
     <>
@@ -17,11 +57,24 @@ export default function MenuSection() {
         aria-labelledby="menu-title"
       >
         <div className="mx-auto max-w-7xl">
-          <ul
-            id="pizza-cards"
-            className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
-          >
-            {pizzas.map((pizza) => (
+          {isLoading ? (
+            <p role="status" className="py-12 text-center text-neutral-500">
+              Carregando cardápio...
+            </p>
+          ) : loadError ? (
+            <p role="alert" className="py-12 text-center text-red-600">
+              {loadError}
+            </p>
+          ) : pizzas.length === 0 ? (
+            <p className="py-12 text-center text-neutral-600">
+              O cardápio será atualizado em breve.
+            </p>
+          ) : (
+            <ul
+              id="pizza-cards"
+              className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+            >
+              {pizzas.map((pizza) => (
               <li key={pizza.id}>
                 <article className="flex h-full flex-col overflow-hidden rounded-lg bg-white text-neutral-900 shadow-lg">
                   <div className="relative h-80 w-full">
@@ -96,8 +149,9 @@ export default function MenuSection() {
                   </div>
                 </article>
               </li>
-            ))}
-          </ul>
+              ))}
+            </ul>
+          )}
         </div>
       </section>
 
