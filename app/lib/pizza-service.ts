@@ -4,7 +4,9 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  query,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { db } from "@/app/lib/firebase";
 import type { Pizza, PizzaInput } from "@/app/types/pizza";
@@ -54,6 +56,18 @@ const validatePizzaInput = (pizza: PizzaInput): void => {
 
 export async function listPizzas(): Promise<Pizza[]> {
   const snapshot = await getDocs(collection(db, PIZZAS_COLLECTION));
+  return snapshot.docs.map((pizzaDocument) =>
+    parsePizza(pizzaDocument.id, pizzaDocument.data()),
+  );
+}
+
+export async function listAvailablePizzas(): Promise<Pizza[]> {
+  const availablePizzas = query(
+    collection(db, PIZZAS_COLLECTION),
+    where("available", "==", true),
+  );
+  const snapshot = await getDocs(availablePizzas);
+
   return snapshot.docs.map((pizzaDocument) =>
     parsePizza(pizzaDocument.id, pizzaDocument.data()),
   );
